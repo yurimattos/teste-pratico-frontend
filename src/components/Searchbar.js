@@ -17,6 +17,7 @@ function Searchbar() {
         id="searh"
         aria-describedby="search"
         onChange={inputHandler}
+        placeholder="Search a post..."
       />
       <PostList inputText={inputText} />
     </>

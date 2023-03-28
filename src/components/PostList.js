@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { PostContext } from "../contexts/PostContext";
+import User from "../pages/User";
 
 const PostList = (props) => {
   const { blogData } = useContext(PostContext);
 
   const filteredData = blogData.filter((item) => {
     if (props.inputText === "") {
-      return item.body;
+      return item.title;
     } else {
-      return item.body.includes(props.inputText);
+      return item.title.includes(props.inputText);
     }
   });
 
@@ -26,7 +28,7 @@ const PostList = (props) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "65%",
+          width: "100%",
         }}
       >
         {filteredData.map((item) => {
@@ -70,7 +72,12 @@ const PostList = (props) => {
                       margin: 0,
                     }}
                   >
-                    <a href="#">{item?.user[0].name}</a>
+                    <Link
+                      to={`/posts/${item?.user[0]?.id}`}
+                      style={{ color: "#333" }}
+                    >
+                      {item?.user[0]?.name}
+                    </Link>
                   </p>
                   <p
                     style={{
@@ -79,8 +86,8 @@ const PostList = (props) => {
                       margin: 0,
                     }}
                   >
-                    {item?.user[0].company.name} - {""}
-                    {item?.user[0].company.catchPhrase}
+                    {item?.user[0]?.company?.name} - {""}
+                    {item?.user[0]?.company?.catchPhrase}
                   </p>
                 </div>
               </div>
@@ -92,11 +99,14 @@ const PostList = (props) => {
                   textTransform: "capitalize",
                 }}
               >
-                {item?.title}
+                <Link
+                  to={`/posts/${item?.id}`}
+                  style={{ color: "#333", textDecoration: "none" }}
+                >
+                  {item?.title}
+                </Link>
               </h2>
-              <p style={{ color: "#333", margin: 0, textAlign: "justify" }}>
-                {item?.body}
-              </p>
+              <p style={{ margin: 0, textAlign: "justify" }}>{item?.body}</p>
               <hr style={{ color: "#adadad" }} />
             </div>
           );
