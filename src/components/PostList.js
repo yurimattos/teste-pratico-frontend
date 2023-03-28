@@ -73,7 +73,7 @@ const PostList = (props) => {
                     }}
                   >
                     <Link
-                      to={`/posts/${item?.user[0]?.id}`}
+                      to={`/users/${item?.user[0]?.id}`}
                       style={{ color: "#333" }}
                     >
                       {item?.user[0]?.name}
